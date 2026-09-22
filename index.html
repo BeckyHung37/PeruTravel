@@ -191,6 +191,35 @@
   }
   .row .v { font-size: 0.94rem; }
   .row .v.warn { font-weight: 600; }
+
+  /* itinerary timeline */
+  .itinerary-timeline { margin-top: 2px; padding: 4px 0 2px; }
+  .timeline-item {
+    display: grid; grid-template-columns: 78px 22px minmax(0, 1fr);
+    align-items: start; min-height: 54px; position: relative;
+  }
+  .timeline-time {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; font-weight: 500;
+    line-height: 1.4; color: var(--accent); text-align: right; padding: 3px 10px 0 0;
+    white-space: nowrap;
+  }
+  .timeline-axis { position: relative; min-height: 54px; }
+  .timeline-dot {
+    position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+    width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+    z-index: 2;
+  }
+  .timeline-item:not(:last-child) .timeline-axis::after {
+    content: ""; position: absolute; top: 15px; bottom: -1px; left: 50%;
+    width: 1px; transform: translateX(-50%); background: var(--accent-secondary);
+    opacity: 0.75;
+  }
+  .timeline-event {
+    font-size: 0.94rem; line-height: 1.65; padding: 0 0 18px 10px; color: var(--foreground);
+  }
+  .timeline-item:last-child { min-height: auto; }
+  .timeline-item:last-child .timeline-event { padding-bottom: 2px; }
   .pack-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .pack-tags span {
     font-size: 0.82rem; background: var(--muted); border: 1px solid var(--border);
@@ -420,6 +449,20 @@ const chevronSvg = `<svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="
 
 function escapeHtml(s){ return s ? s.replace(/&/g,"&amp;").replace(/</g,"&lt;") : s; }
 
+function renderItineraryTimeline(itinerary){
+  const parts = itinerary.split(/　+/).map(x => x.trim()).filter(Boolean);
+  return `<div class="itinerary-timeline">${parts.map((part, idx) => {
+    const match = part.match(/^(\\d{2}:\\d{2}(?:[–-]\\d{2}:\\d{2})?)\\s*(.*)$/);
+    const time = match ? match[1] : (parts.length === 1 && part.includes('自由活動') ? '全天' : '');
+    const event = match ? match[2] : part;
+    return `<div class="timeline-item">
+      <div class="timeline-time">${escapeHtml(time || '—')}</div>
+      <div class="timeline-axis"><span class="timeline-dot"></span></div>
+      <div class="timeline-event">${escapeHtml(event)}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
 const chipTrack = document.getElementById('chipTrack');
 const dayList = document.getElementById('dayList');
 
@@ -441,7 +484,7 @@ days.forEach((day, i) => {
   if (day.flight) {
     rows += `<div class="row"><span class="k">航班 / 交通</span><div class="v">${escapeHtml(day.flight)}</div></div>`;
   }
-  rows += `<div class="row"><span class="k">行程</span><div class="v">${escapeHtml(day.itinerary)}</div></div>`;
+  rows += `<div class="row"><span class="k">行程</span>${renderItineraryTimeline(day.itinerary)}</div>`;
   if (day.notes) {
     rows += `<div class="row"><span class="k">注意事項</span><div class="v ${day.warn ? 'warn' : ''}">${escapeHtml(day.notes)}</div></div>`;
   }
