@@ -193,33 +193,73 @@
   .row .v.warn { font-weight: 600; }
 
   /* itinerary timeline */
-  .itinerary-timeline { margin-top: 2px; padding: 4px 0 2px; }
+  .itinerary-timeline {
+    margin-top: 2px;
+    padding: 4px 0 2px;
+  }
   .timeline-item {
-    display: grid; grid-template-columns: 78px 22px minmax(0, 1fr);
-    align-items: start; min-height: 54px; position: relative;
+    display: grid;
+    grid-template-columns: 92px 28px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: start;
+    min-height: 58px;
+    position: relative;
   }
   .timeline-time {
-    font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; font-weight: 500;
-    line-height: 1.4; color: var(--accent); text-align: right; padding: 3px 10px 0 0;
+    grid-column: 1;
+    text-align: right;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--accent);
+    padding-top: 1px;
     white-space: nowrap;
   }
-  .timeline-axis { position: relative; min-height: 54px; }
+  .timeline-marker {
+    grid-column: 2;
+    position: relative;
+    width: 28px;
+    min-height: 58px;
+  }
   .timeline-dot {
-    position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
-    width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
     z-index: 2;
   }
-  .timeline-item:not(:last-child) .timeline-axis::after {
-    content: ""; position: absolute; top: 15px; bottom: -1px; left: 50%;
-    width: 1px; transform: translateX(-50%); background: var(--accent-secondary);
-    opacity: 0.75;
+  .timeline-line {
+    position: absolute;
+    top: 18px;
+    bottom: -6px;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: color-mix(in srgb, var(--accent) 75%, transparent);
   }
-  .timeline-event {
-    font-size: 0.94rem; line-height: 1.65; padding: 0 0 18px 10px; color: var(--foreground);
+  .timeline-item:last-child .timeline-line { display: none; }
+  .timeline-content {
+    grid-column: 3;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--foreground);
+    padding-top: 0;
   }
-  .timeline-item:last-child { min-height: auto; }
-  .timeline-item:last-child .timeline-event { padding-bottom: 2px; }
+  @media (max-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 88px 24px minmax(0, 1fr);
+      column-gap: 10px;
+    }
+    .timeline-time { font-size: 0.76rem; }
+    .timeline-marker { width: 24px; }
+    .timeline-content { font-size: 0.96rem; }
+  }
   .pack-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .pack-tags span {
     font-size: 0.82rem; background: var(--muted); border: 1px solid var(--border);
@@ -451,14 +491,19 @@ function escapeHtml(s){ return s ? s.replace(/&/g,"&amp;").replace(/</g,"&lt;") 
 
 function renderItineraryTimeline(itinerary){
   const parts = itinerary.split(/　+/).map(x => x.trim()).filter(Boolean);
-  return `<div class="itinerary-timeline">${parts.map((part, idx) => {
+
+  return `<div class="itinerary-timeline">${parts.map((part) => {
     const match = part.match(/^(\\d{2}:\\d{2}(?:[–-]\\d{2}:\\d{2})?)\\s*(.*)$/);
-    const time = match ? match[1] : (parts.length === 1 && part.includes('自由活動') ? '全天' : '');
+    const time = match ? match[1] : (parts.length === 1 && part.includes('自由活動') ? '全天' : '—');
     const event = match ? match[2] : part;
+
     return `<div class="timeline-item">
-      <div class="timeline-time">${escapeHtml(time || '—')}</div>
-      <div class="timeline-axis"><span class="timeline-dot"></span></div>
-      <div class="timeline-event">${escapeHtml(event)}</div>
+      <div class="timeline-time">${escapeHtml(time)}</div>
+      <div class="timeline-marker">
+        <span class="timeline-dot"></span>
+        <span class="timeline-line"></span>
+      </div>
+      <div class="timeline-content">${escapeHtml(event)}</div>
     </div>`;
   }).join('')}</div>`;
 }
