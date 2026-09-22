@@ -492,20 +492,20 @@ function escapeHtml(s){ return s ? s.replace(/&/g,"&amp;").replace(/</g,"&lt;") 
 function renderItineraryTimeline(itinerary){
   const parts = itinerary.split(/　+/).map(x => x.trim()).filter(Boolean);
 
-  return `<div class="itinerary-timeline">${parts.map((part) => {
-    const match = part.match(/^(\\d{2}:\\d{2}(?:[–-]\\d{2}:\\d{2})?)\\s*(.*)$/);
+  return \`<div class="itinerary-timeline">\${parts.map((part) => {
+    const match = part.match(/^(\d{2}:\d{2}(?:[–-]\d{2}:\d{2})?)\s*(.*)$/);
     const time = match ? match[1] : (parts.length === 1 && part.includes('自由活動') ? '全天' : '—');
     const event = match ? match[2] : part;
 
-    return `<div class="timeline-item">
-      <div class="timeline-time">${escapeHtml(time)}</div>
+    return \`<div class="timeline-item">
+      <div class="timeline-time">\${escapeHtml(time)}</div>
       <div class="timeline-marker">
         <span class="timeline-dot"></span>
         <span class="timeline-line"></span>
       </div>
-      <div class="timeline-content">${escapeHtml(event)}</div>
-    </div>`;
-  }).join('')}</div>`;
+      <div class="timeline-content">\${escapeHtml(event)}</div>
+    </div>\`;
+  }).join('')}</div>\`;
 }
 
 const chipTrack = document.getElementById('chipTrack');
