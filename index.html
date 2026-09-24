@@ -260,29 +260,50 @@
     .timeline-marker { width: 24px; }
     .timeline-content { font-size: 0.96rem; }
   }
-  .dining-list { display: grid; gap: 10px; }
-  .dining-item {
+  .dining-list {
     display: grid;
-    grid-template-columns: 54px minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-    align-items: start;
+  }
+  .dining-item {
+    min-width: 0;
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 12px;
   }
   .dining-meal {
     font-family: "IBM Plex Mono", monospace;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 600;
+    letter-spacing: 0.08em;
     color: var(--accent);
-    padding-top: 2px;
+    margin-bottom: 5px;
   }
-  .dining-content { font-size: 0.94rem; line-height: 1.65; }
-  .dining-time { font-weight: 600; margin-right: 6px; }
+  .dining-content {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .dining-time {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 3px;
+  }
   .dining-link {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
-  .dining-note { color: var(--muted-foreground); }
+  .dining-note {
+    color: var(--muted-foreground);
+    font-size: 0.82rem;
+    margin-top: 4px;
+  }
     .pack-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .pack-tags span {
     font-size: 0.82rem; background: var(--muted); border: 1px solid var(--border);
@@ -428,7 +449,7 @@
 const days = [
   { d:"09.26", wd:"六", loc:"利馬抵達", alt:"150m", hotel:"Jose Antonio Deluxe Miraflores",
     flight:"抵達航班 LA2699 · 05:00",
-    itinerary:"機場接機（導遊 Vega）",
+    itinerary:"機場接機（導遊 Vega）　12:15 午餐：Quipas",
     dining:[
       {meal:"午餐", time:"12:15", text:"Quipas", url:"https://maps.app.goo.gl/nhyGcS6BafDMWP8q6?g_st=ic"},
       {meal:"晚餐", text:"尚無規劃"}
@@ -447,7 +468,7 @@ const days = [
 
   { d:"09.28", wd:"一", loc:"Huacachina（三人合體）", alt:"400m", hotel:"Jose Antonio Deluxe Miraflores",
     flight:null,
-    itinerary:"08:00–10:00 帕拉卡斯 Boat Trip　13:00 Huacachina 沙漠綠洲（Polaris 沙丘車＋滑沙）",
+    itinerary:"08:00–10:00 帕拉卡斯 Boat Trip　13:00 Huacachina 沙漠綠洲（Polaris 沙丘車＋滑沙）　20:00 抵達利馬　22:30 晚餐：Siete Sopas (Parque Kennedy)",
     dining:[
       {meal:"午餐", text:"尚無規劃"},
       {meal:"晚餐", time:"22:30", text:"Siete Sopas (Parque Kennedy)", url:"https://www.google.com/maps/search/?api=1&query=Siete%20Sopas%20Kennedy%20Lima", note:"20:00 抵達利馬後，預計 22:30 用餐"}
@@ -457,7 +478,7 @@ const days = [
 
   { d:"09.29", wd:"二", loc:"庫斯科", alt:"2,800m", hotel:"Casa Andina Premium Valle Sagrado",
     flight:"航班 JA7039 · 11:00–12:25",
-    itinerary:"08:30 飯店出發　飛往庫斯科　Pisac 印加遺址",
+    itinerary:"08:30 飯店出發　飛往庫斯科　Pisac 印加遺址　19:00–21:00 晚餐：Alma Bar Restaurante",
     dining:[
       {meal:"午餐", text:"飛機上吃"},
       {meal:"晚餐", time:"19:00–21:00", text:"Alma Bar Restaurante", url:"https://www.google.com/maps/search/?api=1&query=Alma%20Bar%20Restaurante%20Sacred%20Valley%20Peru"}
@@ -473,7 +494,7 @@ const days = [
 
   { d:"10.01", wd:"四", loc:"馬丘比丘", alt:"2,430m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"09:15 觀景火車出發（Ollantaytambo → 馬丘比丘）　12:00 馬丘比丘導覽　17:23 火車返回 Ollantaytambo",
+    itinerary:"09:15 觀景火車出發（Ollantaytambo → 馬丘比丘）　12:00 馬丘比丘導覽　17:23 火車返回 Ollantaytambo　19:00 晚餐：Hawa 餐廳",
     dining:[
       {meal:"午餐", text:"馬丘比丘路上吃"},
       {meal:"晚餐", time:"19:00", text:"Hawa 餐廳", url:"https://www.google.com/maps/search/?api=1&query=Hawa%20Restaurant%20Sacred%20Valley%20Peru"}
@@ -483,7 +504,7 @@ const days = [
 
   { d:"10.02", wd:"五", loc:"庫斯科", alt:"3,400m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"Coricancha 太陽神殿　Sacsayhuamán 要塞　San Pedro 市場",
+    itinerary:"Coricancha 太陽神殿　Sacsayhuamán 要塞　San Pedro 市場　19:00 晚餐",
     dining:[
       {meal:"午餐", text:"尚無規劃"},
       {meal:"晚餐", time:"19:00", text:"餐廳（Google Maps）", url:"https://maps.app.goo.gl/NagWLkFgRhR8zTPk8?g_st=ic"}
@@ -492,7 +513,7 @@ const days = [
 
   { d:"10.03", wd:"六", loc:"庫斯科自由日", alt:"3,400m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"自由活動日",
+    itinerary:"自由活動日　18:30 晚餐：II Ovile",
     dining:[
       {meal:"午餐", text:"自由行，可再找想訂的餐廳"},
       {meal:"晚餐", time:"18:30", text:"II Ovile", url:"https://maps.app.goo.gl/3dWg3hDT9VQeNM5G6?g_st=ic"}
@@ -512,7 +533,7 @@ const days = [
 
   { d:"10.05", wd:"一", loc:"Starlodge", alt:"~3,000m", hotel:"Starlodge",
     flight:null,
-    itinerary:"Starlodge 星空酒店體驗",
+    itinerary:"Starlodge 星空酒店體驗　18:30 Starlodge 晚餐",
     dining:[
       {meal:"午餐", text:"尚無規劃，庫斯科自理"},
       {meal:"晚餐", time:"18:30", text:"Starlodge 享用晚餐", url:"https://www.google.com/maps/search/?api=1&query=Starlodge%20Peru"}
@@ -522,7 +543,7 @@ const days = [
 
   { d:"10.06", wd:"二", loc:"返回庫斯科", alt:"3,400m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"Starlodge 行程結束，接送回庫斯科",
+    itinerary:"Starlodge 行程結束，接送回庫斯科　18:30 晚餐",
     dining:[
       {meal:"午餐", text:"尚無規劃"},
       {meal:"晚餐", time:"18:30", text:"餐廳（Google Maps）", url:"https://maps.app.goo.gl/MYMvSwBcnjeiPbGH9?g_st=ic"}
