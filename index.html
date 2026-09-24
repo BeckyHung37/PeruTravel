@@ -278,6 +278,14 @@
     flex: 0 0 14px;
     fill: currentColor;
   }
+  .transport-ticket {
+    margin-top: 8px;
+  }
+  .transport-ticket .ticket-action {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
 
   .dining-list {
     display: grid;
@@ -542,6 +550,7 @@ const days = [
 
   { d:"10.01", wd:"四", loc:"馬丘比丘", alt:"2,430m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:"觀景火車｜08:45 抵達 Ollantaytambo 車站 · 09:15 Ollantaytambo → Machu Picchu｜16:53 抵達 Machu Picchu 車站 · 17:23 Machu Picchu → Ollantaytambo",
+    trainTicket:true,
     itinerary:"08:45 抵達 Ollantaytambo 車站　09:15 觀景火車出發（Ollantaytambo → Machu Picchu）　12:00 馬丘比丘 2A 路線　15:00 馬丘比丘 1B 路線　16:53 抵達 Machu Picchu 車站　17:23 火車返回 Ollantaytambo　19:00 晚餐：Hawa 餐廳",
     dining:[
       {meal:"午餐", text:"馬丘比丘路上吃"},
@@ -601,6 +610,7 @@ const days = [
 
   { d:"10.07", wd:"三", loc:"普諾", alt:"3,830m", hotel:"GHL Hotel Lago Titicaca",
     flight:"火車｜07:20 抵達 Wanchaq 車站 · 07:50 Wanchaq → Puno（約18:20抵達）",
+    trainTicket:true,
     itinerary:"06:50 飯店出發　07:20 抵達 Wanchaq 車站　07:50 搭乘火車前往普諾（約18:20抵達）",
     dining:[
       {meal:"午餐", text:"火車上提供"},
@@ -689,7 +699,13 @@ days.forEach((day, i) => {
 
   let rows = '';
   if (day.flight) {
-    rows += `<div class="row"><span class="k">航班 / 交通</span><div class="v">${escapeHtml(day.flight)}</div></div>`;
+    const trainTicketLink = day.trainTicket
+      ? `<div class="transport-ticket"><a class="ticket-action" href="#" onclick="event.preventDefault();" aria-label="火車票點此">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10a2 2 0 0 1 0 4v4a2 2 0 0 1-2 2h-6v-2h-2v2H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 0-4V6a2 2 0 0 1 2-2h6v2h2V4h6a2 2 0 0 1 2 2v4ZM11 8h2v3h-2V8Zm0 5h2v3h-2v-3Z"/></svg>
+          <span>火車票點此</span>
+        </a></div>`
+      : '';
+    rows += `<div class="row"><span class="k">航班 / 交通</span><div class="v">${escapeHtml(day.flight)}${trainTicketLink}</div></div>`;
   }
   rows += `<div class="row"><span class="k">行程</span>${renderItineraryTimeline(day.itinerary)}</div>`;
   if (day.dining && day.dining.length) {
