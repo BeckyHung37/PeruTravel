@@ -383,8 +383,8 @@
         <span>Machu Picchu · 2,430m</span>
       </div>
     </div>
-    <div class="eyebrow">Sep 26 — Oct 9</div>
-    <h1><span class="h1-small">琪芳庭的14天</span>勇闖馬丘比丘之旅</h1>
+    <div class="eyebrow">Sep 25 — Oct 9</div>
+    <h1><span class="h1-small">琪芳庭的15天</span>勇闖馬丘比丘之旅</h1>
     <div class="hero-meta">
       <div><div class="k">Company</div><div class="v">Kiki Peru Travel S.A.C.</div></div>
       <div><div class="k">Address</div><div class="v">La Paz 744</div></div>
@@ -397,7 +397,7 @@
 <section id="altitude">
   <div class="wrap">
     <h2 class="serif" style="font-size:1.6rem; margin-bottom: 8px;">秘魯行程海拔示意圖</h2>
-    <p style="color:var(--muted-foreground); margin-top:0; margin-bottom:28px;">9/26 — 10/9，全程最高點為彩虹山 5,200 公尺。</p>
+    <p style="color:var(--muted-foreground); margin-top:0; margin-bottom:28px;">9/25 — 10/9，全程最高點為彩虹山 5,200 公尺。</p>
     <div class="chart-scroll">
       <svg id="altitudeChart" viewBox="0 0 1400 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Peru itinerary altitude profile chart"></svg>
     </div>
@@ -447,14 +447,19 @@
 
 <script>
 const days = [
-  { d:"09.26", wd:"六", loc:"利馬抵達", alt:"150m", hotel:"Jose Antonio Deluxe Miraflores",
-    flight:"抵達航班 LA2699 · 05:00",
-    itinerary:"機場接機（導遊 Vega）　12:15 午餐：Quipas",
+  { d:"09.25", wd:"五", loc:"利馬抵達", alt:"150m", hotel:"Jose Antonio Deluxe Miraflores",
+    flight:"宜庭和侑芳航班 LA2479 · 22:10 抵達利馬",
+    itinerary:"22:10 宜庭和侑芳航班抵達利馬",
+    notes:null, guide:"Vega", pack:["護照","訂房資料","常備藥"] },
+
+  { d:"09.26", wd:"六", loc:"利馬自由日", alt:"150m", hotel:"Jose Antonio Deluxe Miraflores",
+    flight:null,
+    itinerary:"自由活動日　12:15 午餐：Quipas",
     dining:[
       {meal:"午餐", time:"12:15", text:"Quipas", url:"https://maps.app.goo.gl/nhyGcS6BafDMWP8q6?g_st=ic"},
       {meal:"晚餐", text:"尚無規劃"}
     ],
-    notes:null, guide:"Vega", pack:["護照","訂房資料","常備藥"] },
+    notes:null, guide:null, pack:[] },
 
   { d:"09.27", wd:"日", loc:"帕拉卡斯", alt:"400m", hotel:"2 位：Casa Paracas ／ 第3位：Jose Antonio",
     flight:"第3位旅客航班 LA2479 · 22:10 抵達利馬",
