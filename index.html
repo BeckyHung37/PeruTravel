@@ -665,11 +665,17 @@ function renderItineraryTimeline(itinerary){
     const time = match ? match[1] : (parts.length === 1 && part.includes('自由活動') ? '全天' : '—');
     const event = match ? match[2] : part;
 
-    const isMachuTicketRoute = event.includes('馬丘比丘 2A 路線') || event.includes('馬丘比丘 1B 路線');
-    const ticketAction = isMachuTicketRoute
-      ? '<div class="timeline-subaction"><span class="ticket-action" aria-label="門票點此">' +
+    let ticketUrl = '';
+    if (event.includes('馬丘比丘 2A 路線')) {
+      ticketUrl = 'asset/machu_picchu_tickets_2A.pdf';
+    } else if (event.includes('馬丘比丘 1B 路線')) {
+      ticketUrl = 'asset/machu_picchu_tickets_1B.pdf';
+    }
+
+    const ticketAction = ticketUrl
+      ? '<div class="timeline-subaction"><a class="ticket-action" href="' + ticketUrl + '" target="_blank" rel="noopener noreferrer" aria-label="門票點此">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10a2 2 0 0 1 0 4v4a2 2 0 0 1-2 2h-6v-2h-2v2H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 0-4V6a2 2 0 0 1 2-2h6v2h2V4h6a2 2 0 0 1 2 2v4ZM11 8h2v3h-2V8Zm0 5h2v3h-2v-3Z"/></svg>' +
-        '<span>門票點此</span></span></div>'
+        '<span>門票點此</span></a></div>'
       : '';
 
     return '<div class="timeline-item">' +
