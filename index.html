@@ -293,6 +293,25 @@
     color: var(--foreground);
     margin-bottom: 3px;
   }
+  .reservation-badge {
+    display: inline-block;
+    margin: 2px 0 6px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .reservation-badge.confirmed {
+    color: #1f6b3a;
+    background: #e7f5ec;
+    border: 1px solid #b9dfc7;
+  }
+  .reservation-badge.unavailable {
+    color: #6b6b6b;
+    background: #eeeeec;
+    border: 1px solid #d7d5d0;
+  }
   .dining-link {
     color: var(--accent);
     text-decoration: underline;
@@ -456,7 +475,7 @@ const days = [
     flight:null,
     itinerary:"自由活動日　12:15 午餐：Quipas",
     dining:[
-      {meal:"午餐", time:"12:15", text:"Quipas", url:"https://maps.app.goo.gl/nhyGcS6BafDMWP8q6?g_st=ic"},
+      {meal:"午餐", time:"12:15", text:"Quipas", url:"https://maps.app.goo.gl/nhyGcS6BafDMWP8q6?g_st=ic", status:"已訂位"},
       {meal:"晚餐", text:"尚無規劃"}
     ],
     notes:null, guide:null, pack:[] },
@@ -476,7 +495,7 @@ const days = [
     itinerary:"08:00–10:00 帕拉卡斯 Boat Trip　13:00 Huacachina 沙漠綠洲（Polaris 沙丘車＋滑沙）　20:00 抵達利馬　22:30 晚餐：Siete Sopas (Parque Kennedy)",
     dining:[
       {meal:"午餐", text:"尚無規劃"},
-      {meal:"晚餐", time:"22:30", text:"Siete Sopas (Parque Kennedy)", url:"https://www.google.com/maps/search/?api=1&query=Siete%20Sopas%20Kennedy%20Lima", note:"20:00 抵達利馬後，預計 22:30 用餐"}
+      {meal:"晚餐", time:"22:30", text:"Siete Sopas (Parque Kennedy)", url:"https://www.google.com/maps/search/?api=1&query=Siete%20Sopas%20Kennedy%20Lima", status:"無法訂位", note:"20:00 抵達利馬後，預計 22:30 用餐"}
     ],
     notes:"建議穿著輕便、可弄髒的衣物；午餐需自理。Boat trip 建議可服用暈船藥。",
     guide:"Vega", pack:["換洗衣物","防曬乳","暈船藥（備用）"] },
@@ -486,7 +505,7 @@ const days = [
     itinerary:"08:30 飯店出發　飛往庫斯科　Pisac 印加遺址　19:00–21:00 晚餐：Alma Bar Restaurante",
     dining:[
       {meal:"午餐", text:"飛機上吃"},
-      {meal:"晚餐", time:"19:00–21:00", text:"Alma Bar Restaurante", url:"https://www.google.com/maps/search/?api=1&query=Alma%20Bar%20Restaurante%20Sacred%20Valley%20Peru"}
+      {meal:"晚餐", time:"19:00–21:00", text:"Alma Bar Restaurante", url:"https://www.google.com/maps/search/?api=1&query=Alma%20Bar%20Restaurante%20Sacred%20Valley%20Peru", status:"無法訂位"}
     ],
     notes:"海拔 2,800m，超過 2,000m，今天起請開始服用高山症藥物。", warn:true,
     guide:"Luis", pack:["保暖層","高山症藥物"] },
@@ -506,26 +525,26 @@ const days = [
     itinerary:"09:15 觀景火車出發（Ollantaytambo → 馬丘比丘）　12:00 馬丘比丘導覽　17:23 火車返回 Ollantaytambo　19:00 晚餐：Hawa 餐廳",
     dining:[
       {meal:"午餐", text:"馬丘比丘路上吃"},
-      {meal:"晚餐", time:"19:00", text:"Hawa 餐廳", url:"https://www.google.com/maps/search/?api=1&query=Hawa%20Restaurant%20Sacred%20Valley%20Peru", note:"沒辦法訂位"}
+      {meal:"晚餐", time:"19:00", text:"Hawa 餐廳", url:"https://www.google.com/maps/search/?api=1&query=Hawa%20Restaurant%20Sacred%20Valley%20Peru", status:"無法訂位"}
     ],
     notes:"現場不能攜帶自拍棒、空拍機等器材。大行李可留在飯店（當晚不換飯店）。",
     guide:null, pack:["簡單後背包","輕便雨具","防曬乳"] },
 
   { d:"10.02", wd:"五", loc:"庫斯科", alt:"3,400m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"Coricancha 太陽神殿　Sacsayhuamán 要塞　San Pedro 市場　19:00 晚餐",
+    itinerary:"Coricancha 太陽神殿　Sacsayhuamán 要塞　San Pedro 市場　19:00 晚餐：Uchu Peruvian Steakhouse",
     dining:[
       {meal:"午餐", text:"尚無規劃"},
-      {meal:"晚餐", time:"19:00", text:"餐廳（Google Maps）", url:"https://maps.app.goo.gl/NagWLkFgRhR8zTPk8?g_st=ic"}
+      {meal:"晚餐", time:"19:00", text:"Uchu Peruvian Steakhouse", url:"https://maps.app.goo.gl/NagWLkFgRhR8zTPk8?g_st=ic", status:"已訂位"}
     ],
     notes:null, guide:null, pack:["舒適走路鞋","防曬乳"] },
 
   { d:"10.03", wd:"六", loc:"庫斯科自由日", alt:"3,400m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"自由活動日　18:30 晚餐：II Ovile",
+    itinerary:"自由活動日　18:30 晚餐：il Olivo",
     dining:[
       {meal:"午餐", text:"自由行，可再找想訂的餐廳"},
-      {meal:"晚餐", time:"18:30", text:"II Ovile", url:"https://maps.app.goo.gl/3dWg3hDT9VQeNM5G6?g_st=ic"}
+      {meal:"晚餐", time:"18:30", text:"il Olivo", url:"https://maps.app.goo.gl/3dWg3hDT9VQeNM5G6?g_st=ic", status:"無法訂位"}
     ],
     notes:"外出請留意隨身物品跟手機安全。明天前往彩虹山，海拔超過5,000公尺，請持續服用高山症藥物；若想騎馬或搭摩托車代步，需現場付現（約 S/100）；登山杖車上會提供；建議準備小額硬幣，沿途洗手間需付現。", warn:true,
     guide:null, pack:[] },
@@ -552,10 +571,10 @@ const days = [
 
   { d:"10.06", wd:"二", loc:"返回庫斯科", alt:"3,400m", hotel:"Casa Andina Standard Cusco Catedral",
     flight:null,
-    itinerary:"Starlodge 行程結束，接送回庫斯科　18:30 晚餐",
+    itinerary:"Starlodge 行程結束，接送回庫斯科　18:30 晚餐：KUSYKAY Peruvian Craft Food",
     dining:[
       {meal:"午餐", text:"尚無規劃"},
-      {meal:"晚餐", time:"18:30", text:"餐廳（Google Maps）", url:"https://maps.app.goo.gl/MYMvSwBcnjeiPbGH9?g_st=ic"}
+      {meal:"晚餐", time:"18:30", text:"KUSYKAY Peruvian Craft Food", url:"https://maps.app.goo.gl/MYMvSwBcnjeiPbGH9?g_st=ic", status:"已訂位"}
     ],
     notes:"接送皆由 Starlodge 自行安排。",
     guide:null, pack:[] },
@@ -575,7 +594,7 @@ const days = [
     itinerary:"08:00–15:00 的的喀喀湖一日遊　傍晚搭機返回利馬",
     dining:[
       {meal:"午餐", text:"已包含在行程內"},
-      {meal:"晚餐", text:"抵達利馬後找餐廳吃，可考慮此餐廳", url:"https://maps.app.goo.gl/wMkafiQTxd4uYKwy5?g_st=ic", note:"19:45 抵達利馬"}
+      {meal:"晚餐", prefix:"可考慮吃", text:"Casa Tambo Restaurant", url:"https://maps.app.goo.gl/wMkafiQTxd4uYKwy5?g_st=ic", note:"19:45 抵達利馬"}
     ],
     notes:"午餐已包含在行程內。今天是高山症藥物服用的最後一天。", warn:true,
     guide:null, pack:["防曬乳","保暖層"] },
@@ -593,13 +612,17 @@ function escapeHtml(s){ return s ? s.replace(/&/g,"&amp;").replace(/</g,"&lt;") 
 function renderDining(dining){
   return '<div class="dining-list">' + dining.map(item => {
     const time = item.time ? '<span class="dining-time">' + escapeHtml(item.time) + '</span>' : '';
+    const badge = item.status
+      ? '<span class="reservation-badge ' + (item.status === '已訂位' ? 'confirmed' : 'unavailable') + '">' + escapeHtml(item.status) + '</span>'
+      : '';
+    const prefix = item.prefix ? escapeHtml(item.prefix) + ' ' : '';
     const name = item.url
-      ? '<a class="dining-link" href="' + item.url + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(item.text) + '</a>'
-      : escapeHtml(item.text);
+      ? prefix + '<a class="dining-link" href="' + item.url + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(item.text) + '</a>'
+      : prefix + escapeHtml(item.text);
     const note = item.note ? '<div class="dining-note">' + escapeHtml(item.note) + '</div>' : '';
     return '<div class="dining-item">' +
       '<div class="dining-meal">' + escapeHtml(item.meal) + '</div>' +
-      '<div class="dining-content">' + time + name + note + '</div>' +
+      '<div class="dining-content">' + time + badge + name + note + '</div>' +
     '</div>';
   }).join('') + '</div>';
 }
